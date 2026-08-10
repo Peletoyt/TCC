@@ -193,6 +193,27 @@ body{
     cursor: pointer;
 }
 
+.dropdown-box{
+        position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    background-color: lightgray;
+    border-radius: 10px;
+    width: 5rem;
+    height: fit-content;
+    justify-content: space-between;
+    opacity: 0;
+    transition: .2s ease;
+    pointer-events: none;
+}
+.dropdown-box.show{
+    opacity: 1;
+    transform: translate(0, 2.5rem);
+    pointer-events: visible;
+}
+
 #sidebar svg{
     flex-shrink: 0;
     fill: var(--text-color-primary);

@@ -20,10 +20,13 @@ function renderizarAvisos(avisos) {
     const li = document.createElement("li");
     li.innerHTML = `
             <div class="container-aviso">
-              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Left popover">
+              <button type="button" class="btnOptions bg-transparent">
                 <img src="icons/options.png">
               </button>
-              <button class="btn"><img src="icons/options.png"></button>
+              <div class="dropdown-box">
+                <a class="dropdown-item">Editar</a>
+                <a class="dropdown-item">Excluir</a>
+              </div>
                   <h3>${aviso.titulo}</h3>
                   <h6>${aviso.date? new Date(aviso.date).toLocaleDateString() : 'sem data'} • Autor: ${aviso.usuario?.nome || "Anônimo"}</h6>
                   <p>${aviso.conteudo}</p>
