@@ -97,20 +97,3 @@ async function fetchUsuarios() {
 }
 
 fetchUsuarios();
-
-// total de usuarios
-async function carregarTotalUsuarios() {
-  try {
-    const res = await fetch("/totalUsuarios");
-    const text = await res.text();
-    console.log("RESPOSTA:", text);
-    const data = JSON.parse(text);
-
-    document.querySelector("#totalUsuarios").textContent = data.total;
-
-  } catch (err) {
-    console.error("ERRO:", err);
-  }
-}
-
-carregarTotalUsuarios();

@@ -23,14 +23,13 @@ router.get("/", admin, async (req, res) => {
 
 // ─── CREATE: Criar novo usuário ────────────────────────────────────────────────
 router.post("/", admin, async (req, res) => {
-    const { nome, email, senha, usuariocol } = req.body;
+    const { nome, email, usuariocol } = req.body;
 
     try {
         const novoUsuario = await prisma.usuario.create({
             data: {
                 nome,
                 email,
-                senha,
                 usuariocol
             }
         });
