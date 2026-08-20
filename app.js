@@ -18,54 +18,6 @@ const router = express.Router();
 const app = express();
 const PORT = 3000;
 
-// multer para lidar com uploads de arquivos (imagens)
-const multer = require('multer');
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "public/uploads/");
-    },
-    filename: (req, file, cb) => {
-        cb(null, `foto-${Date.now()}.jpg`);
-    }
-});
-const upload = multer({ storage: storage }); // Configura o destino dos arquivos enviados
-
-app.post('/upload', upload.single('foto'), async (req, res) => {
-    try {
-
-        if (!req.session?.usuario?.idusuario) {
-            return res.status(401).json({
-                sucesso: false,
-                mensagem: "Usuário não logado"
-            });
-        }
-
-        const nomeArquivo = req.file.filename;
-
-        await prisma.usuario.update({
-            where: {
-                idusuario: req.session.usuario.idusuario
-            },
-            data: {
-                foto: nomeArquivo
-            }
-        });
-
-        return res.json({
-            sucesso: true,
-            mensagem: "Foto salva com sucesso!"
-        });
-
-    } catch (error) {
-        console.error(error);
-
-        return res.status(500).json({
-            sucesso: false,
-            mensagem: "Erro ao salvar foto"
-        });
-    }
-});
-
 // total de usuarios
 router.get("/totalUsuarios", async (req, res) => {
   try {

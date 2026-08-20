@@ -86,32 +86,34 @@
     userForm.addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      const dados ={
-        nome: document.getElementById('nome-user').value,
-        email: document.getElementById('nome-email').value,
-        usuariocol: document.getElementById('escopo-user').value
+      if(!fotoBlob) {
+        alert("Por favor, capture uma foto antes de enviar o formulário.");
+        return;
       }
+
+      const formData = new FormData();
+
+      formData.append('nome', document.getElementById('nome-user').value);
+      formData.append('email', document.getElementById('nome-email').value);
+      formData.append('usuariocol', document.getElementById('escopo-user').value);
+      formData.append('foto', fotoBlob, `foto-${Date.now()}.jpg`);
 
       try {
         const response = await fetch('/api/usuarios', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(dados),
+          body: formData,
         });
 
+        const result = await response.json();
         if (response.ok) {
           alert('Usuário adicionado com sucesso!');
           userForm.reset();
-          // Aqui você pode adicionar código para atualizar a tabela de usuários
-        } else {
-          const errorData = await response.json();
-          alert(`Erro ao adicionar usuário: ${errorData.message}`);
-        }
-      } catch (error) {
+          fotoBlob = null; // Limpa a foto capturada
+
+        }}
+         catch (error) {
         console.error('Erro ao enviar o formulário:', error);
-        alert('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.');
+        alert(`Ocorreu um erro ao enviar o formulário. Por favor, tente novamente. ${error.message}`);
       }
     });
 

@@ -190,9 +190,9 @@ function abrirModalFoto() {
 
             <button
                 type="button"
-                onclick="enviarFoto()"
+                onclick="confirmarFoto()"
                 class="btn">
-                Enviar Imagem
+                Confirmar Foto
             </button>
         </div>
 
@@ -272,41 +272,11 @@ function capturarFoto() {
     );
 }
 
-async function enviarFoto() {
-    if (!fotoBlob) {
-        alert("Capture uma foto primeiro.");
-        return;
-    }
-
-    const formData = new FormData();
-
-    formData.append(
-        "foto",
-        fotoBlob,
-        `foto-${Date.now()}.jpg`
-    );
-
-    try {
-        const response = await fetch("/upload", {
-            method: "POST",
-            body: formData
-        });
-
-        const data = await response.json();
-
-        console.log(data);
-
-        alert("Foto enviada com sucesso!");
-    } catch (erro) {
-        console.error(erro);
-        alert("Erro ao enviar foto.");
-    }
-}
-
-function fecharFotoModal() {
+function limparFotoModal() {
     const modal = document.getElementById("fotoModal");
     const video = document.querySelector("#webcam");
 
+    // Para a câmera
     if (video && video.srcObject) {
         video.srcObject
             .getTracks()
@@ -315,6 +285,7 @@ function fecharFotoModal() {
         video.srcObject = null;
     }
 
+    // Remove o filtro do conteúdo
     const mainContent =
         document.getElementById("main-content") ||
         document.querySelector("main");
@@ -323,12 +294,32 @@ function fecharFotoModal() {
         mainContent.style.filter = "none";
     }
 
-    document.getElementById("sidebar-placeholder").style.filter = "none";
+    // Remove o filtro da sidebar
+    const sidebar = document.getElementById("sidebar-placeholder");
 
-    fotoBlob = null;
+    if (sidebar) {
+        sidebar.style.filter = "none";
+    }
 
+    // Fecha e remove o modal
     if (modal) {
         modal.close();
         modal.remove();
     }
+}
+
+function confirmarFoto() {
+    if (!fotoBlob) {
+        alert("Capture uma foto primeiro.");
+        return;
+    }
+
+    limparFotoModal();
+
+    alert("Foto selecionada.");
+}
+
+function fecharFotoModal() {
+    limparFotoModal();
+    fotoBlob = null;
 }
