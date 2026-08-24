@@ -24,8 +24,8 @@ function renderizarAvisos(avisos) {
                 <img src="icons/options.png">
               </button>
               <div class="dropdown-box">
-                <a class="dropdown-item">Editar</a>
-                <a class="dropdown-item">Excluir</a>
+                <a class="dropdown-item" style="user-select: none;">Editar</a>
+                <a class="dropdown-item" style="user-select: none;">Excluir</a>
               </div>
                   <h3>${aviso.titulo}</h3>
                   <h6>${aviso.date? new Date(aviso.date).toLocaleDateString() : 'sem data'} • Autor: ${aviso.usuario?.nome || "Anônimo"}</h6>
