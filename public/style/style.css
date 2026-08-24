@@ -63,17 +63,17 @@ body{
   margin-bottom: 5px;
 }
 
-.input-group {
+.login-group {
   margin-bottom: 20px;
 }
 
-.input-group label {
+.login-group label {
   display: block;
   font-weight: bold;
   margin-bottom: 8px;
 }
 
-.input-group input {
+.login-group input {
   width: 100%;
   padding: 12px;
   border: 2px solid rgba(0, 0, 0, 0.3);
@@ -83,7 +83,7 @@ body{
   transition: 0.3s;
 }
 
-.input-group input:focus {
+.login-group input:focus {
   border-color: #530101;
   box-shadow: 0 0 8px rgb(0, 0, 0);
 }
@@ -309,28 +309,6 @@ main p{
     margin-top: 0;
 }
 
-.container-aviso{
-    display: flex;
-    flex-direction: column;
-    border-radius: 1em;
-    padding: min(3em, 2%);
-    width: 100%;
-    margin: 0 auto 20px auto;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-    position: relative;
-}
-.container-aviso p{
-    padding: 0 0 0 0;
-}
-
-.container-aviso button{
-    position: absolute;
-    right: 1em;
-    top: 1em;
-    background-color: transparent;
-    border: none;
-}
-
 .container-cms{
     border: 0px;
     border-radius: 15px;
@@ -348,20 +326,6 @@ main p{
     margin-left: -1em;
     animation: animacaoOpenCms 0.5s ;
 }
-
-.container-doc{
-    border-radius: 1em;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    padding: min(1em, 15%);
-    width: 100%;
-    height: 100%;
-}
-.container-src{
-    display: flex;
-    flex-grow: 1;
-    width: 100%;
-}
-
 
 /* dashboard */
 
