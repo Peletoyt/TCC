@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.45, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.46, for Win64 (x86_64)
 --
 -- Host: localhost    Database: gerenciamento_escolar
 -- ------------------------------------------------------
--- Server version	8.0.45
+-- Server version	8.0.46
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,17 +23,16 @@ DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuario` (
-  `idusuario` int NOT NULL,
+  `idusuario` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `dataCriacao` datetime DEFAULT CURRENT_TIMESTAMP,
-  `foto` varchar(45) NOT NULL,
+  `foto` varchar(45) DEFAULT NULL,
   `usuariocol` enum('admin','funcionario') NOT NULL,
-  `senha` varchar(45) NOT NULL,
+  `senha` varchar(45) NOT NULL DEFAULT 'h3IpM3',
   PRIMARY KEY (`idusuario`),
-  UNIQUE KEY `email_UNIQUE` (`email`),
-  UNIQUE KEY `idusuario_UNIQUE` (`idusuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +41,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'admin','admin@gmail.com','2026-04-28 16:19:00','dsa','admin','admin'),(2,'teste','teste@gmail.co','2026-06-21 22:25:13','sa','admin','teste');
+INSERT INTO `usuario` VALUES (1,'admin','admin@gmail.com','2026-04-28 16:19:00','/uploads/leon_foto.jpg','admin','admin'),(2,'teste','teste@gmail.co','2026-06-21 22:25:13','/uploads/leon_foto.jpg','admin','teste'),(3,'euzin da silvia','oi@gmail.com','2026-08-11 20:52:10',NULL,'funcionario','h3IpM3');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-21 23:48:01
+-- Dump completed on 2026-08-12 17:31:10
