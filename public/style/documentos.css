@@ -31,21 +31,34 @@
 }
 
 /* containeres */
-.container-aviso{
+.documento{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     border-radius: 1em;
     padding: min(3em, 2%);
     width: 100%;
     margin: 0 auto 20px auto;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
     position: relative;
+    gap: 1rem;
 }
-.container-aviso p{
+.documento p{
     padding: 0 0 0 0;
 }
 
-.container-aviso button{
+.documento .doc-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+}
+.documento .doc-icon img{
+    max-width: 4rem;
+    height: auto;
+}
+
+.documento button{
     position: absolute;
     right: 1em;
     top: 1em;
