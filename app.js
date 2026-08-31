@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const encoder = bodyParser.urlencoded();
 const prisma = require("./prismaClient");
-const login = require('./login')
+const login = require('./login');
 const auth = require('./middleware/auth'); // importa o middleware de autenticação
 const router = express.Router();
 
