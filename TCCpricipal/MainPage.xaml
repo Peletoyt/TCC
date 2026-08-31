@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TCCpricipal.MainPage"
+             
+           Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource OffBlack}">
+
+    <Grid>
+        <Frame
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            WidthRequest="300"
+            HeightRequest="450"
+            Padding="22"
+            CornerRadius="18"
+            HasShadow="True"
+            BackgroundColor="{StaticResource White}">
+
+            <ScrollView>
+                <VerticalStackLayout Spacing="16">
+                    <Label Text="Bem-vindo"
+                           FontSize="32"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource MidnightBlue}" />
+
+                    <Label Text="Usuário"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Gray600}" />
+
+                    <Border Stroke="{StaticResource Gray200}"
+                            StrokeThickness="2"
+                            
+                            Padding="6">
+                        <Entry x:Name="UsernameEntry"
+                               Placeholder="Digite seu usuário"
+                               BackgroundColor="Transparent"
+                               TextColor="Black"
+                               
+                               
+                               />
+                    </Border>
+
+                    <Label Text="Senha"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Gray600}" />
+
+                    <Border Stroke="{StaticResource Gray200}"
+                            StrokeThickness="2"
+                            
+                            Padding="6">
+                        <Entry x:Name="PasswordEntry"
+                               IsPassword="True"
+                               Placeholder="********"
+                               BackgroundColor="Transparent"
+                               TextColor="Black"/>
+                    </Border>
+
+                    <Button Text="Entrar"
+                            Clicked="OnLoginClicked"
+                            BackgroundColor="{StaticResource Gray950}"
+                            TextColor="{StaticResource White}"
+                            CornerRadius="10"
+                            HeightRequest="50"
+                            />
+
+                    <Grid ColumnDefinitions="*,Auto" Padding="0,6,0,0">
+                        <Label Text="Esqueceu a senha?"
+                               FontSize="12"
+                               VerticalOptions="Center"
+                               TextColor="{StaticResource Gray600}"
+                               />
+                        <Image Source="propellersystems.png"
+                               HeightRequest="40"
+                               Grid.Column="1"
+                               HorizontalOptions="End" 
+                               />
+                    </Grid>
+                   
+                </VerticalStackLayout>
+            </ScrollView>
+
+        </Frame>
+    </Grid>
+
+</ContentPage>

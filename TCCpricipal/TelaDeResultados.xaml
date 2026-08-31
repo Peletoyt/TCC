@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TCCpricipal.TelaDeResultados"
+             BackgroundColor="White"
+             >
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="18">
+
+            <!-- Título principal -->
+            <Label Text="Visão Geral"
+                   FontSize="34"
+                   FontAttributes="Bold"
+                   TextColor="#212121" />
+
+            <!-- Subtítulo -->
+            <Label Text="Bem-vindo de volta! Aqui está o resumo de sua equipe hoje."
+                   FontSize="16"
+                   TextColor="#616161"
+                   LineBreakMode="WordWrap" />
+
+            <!-- Cartões com informações -->
+            <VerticalStackLayout Spacing="14" Margin="0,8,0,24">
+
+                <!-- Card 1 -->
+                <Frame CornerRadius="12"
+                       HasShadow="True"
+                       Padding="18"
+                       BackgroundColor="White"
+                       BorderColor="#E8E8E8">
+                    
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Total de Funcionários"
+                               FontSize="16"
+                               TextColor="#212121" />
+
+                        <Label Text="101"
+                               FontSize="40"
+                               FontAttributes="Bold"
+                               TextColor="#000000" />
+
+                        <Label Text="+20% esse mês*"
+                               FontSize="14"
+                               TextColor="#2E7D32" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Card 2 -->
+                <Frame CornerRadius="12"
+                       HasShadow="True"
+                       Padding="18"
+                       BackgroundColor="White"
+                       BorderColor="#E8E8E8">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Funcionários Ativos"
+                               FontSize="16"
+                               TextColor="#212121" />
+
+                        <Label Text="22"
+                               FontSize="40"
+                               FontAttributes="Bold"
+                               TextColor="#000000" />
+
+                        <Label Text="+5% esse mês*"
+                               FontSize="14"
+                               TextColor="#2E7D32" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Card 3 -->
+                <Frame CornerRadius="12"
+                       HasShadow="True"
+                       Padding="18"
+                       BackgroundColor="White"
+                       BorderColor="#E8E8E8">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Em licença/férias"
+                               FontSize="16"
+                               TextColor="#212121" />
+
+                        <Label Text="5"
+                               FontSize="40"
+                               FontAttributes="Bold"
+                               TextColor="#000000" />
+
+                        <Label Text="3 voltam semana que vem*"
+                               FontSize="14"
+                               TextColor="#9E9E9E" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Card 4 -->
+                <Frame CornerRadius="12"
+                       HasShadow="True"
+                       Padding="18"
+                       BackgroundColor="White"
+                       BorderColor="#E8E8E8">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Novas Contratações"
+                               FontSize="16"
+                               TextColor="#212121" />
+
+                        <Label Text="2"
+                               FontSize="40"
+                               FontAttributes="Bold"
+                               TextColor="#000000" />
+
+                        <Label Text="Nas últimas semanas*"
+                               FontSize="14"
+                               TextColor="#2E7D32" />
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
