@@ -41,6 +41,7 @@
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
     position: relative;
     gap: 1rem;
+    user-select: none;
 }
 .documento p{
     padding: 0 0 0 0;
@@ -53,6 +54,7 @@
     width: 5rem;
     height: 5rem;
 }
+
 .documento .doc-icon img{
     max-width: 4rem;
     height: auto;
@@ -63,6 +65,11 @@
     background-color: transparent;
     border: none;
     margin-left: auto;
+}
+
+.documento:hover{
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 /* Botão: Slider do documento */
