@@ -4,6 +4,7 @@ namespace TCCpricipal
     {
         public NovoUsuarioPage()
         {
+            
             Title = "Novo Usuário";
             Content = new VerticalStackLayout
             {

@@ -7,14 +7,16 @@
     Title="TCCpricipal"
     FlyoutBehavior="Locked"
     Shell.NavBarIsVisible="False"
-    FlyoutWidth="220"
+    FlyoutWidth="180"
+
     >
 
     <!-- Cabeçalho do menu lateral -->
     <Shell.FlyoutHeader>
-        <Grid Padding="5" BackgroundColor="#121212" ColumnDefinitions="Auto, *">
-            <Label Text="LOGO" TextColor="White" FontAttributes="Bold" FontSize="18" VerticalOptions="Center" />
-            <Button x:Name="ToggleFlyoutButton" Text="«" TextColor="White" FontSize="20" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="Transparent" BorderWidth="0" Padding="0" />
+        <Grid Padding="10" BackgroundColor="#121212" ColumnDefinitions="Auto, *">
+            <Label Text="LOGO" TextColor="White" FontAttributes="Bold" FontSize="16" VerticalOptions="Center" />
+
+            <Button x:Name="ToggleFlyoutButton" Clicked="OnToggleFlyoutButtonClicked" Text="«" TextColor="White" FontSize="20" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="Transparent" BorderWidth="0" Padding="0" />
         </Grid>
     </Shell.FlyoutHeader>
 
@@ -27,7 +29,7 @@
     </FlyoutItem>
 
     <!-- Adicionar / Criar com subitens -->
-    <FlyoutItem Title="Adicionar/Criar" Icon="add_box.png">
+    <FlyoutItem Title="Adicionar/Criar" Icon="adicionarcriar.png">
         <!-- Mantém títulos nos itens do menu lateral -->
         <ShellContent Title="Avisos" ContentTemplate="{DataTemplate local:AvisosPage}" />
         <ShellContent Title="Novo Usuário" ContentTemplate="{DataTemplate local:NovoUsuarioPage}" />
@@ -38,7 +40,7 @@
         <ShellContent Title="Calendário" ContentTemplate="{DataTemplate local:CalendarPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Profile" Icon="person.png">
+    <FlyoutItem Title="Profile" Icon="profile.png">
         <ShellContent Title="Profile" ContentTemplate="{DataTemplate local:ProfilePage}" />
     </FlyoutItem>
 
