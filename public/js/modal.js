@@ -1,4 +1,4 @@
-
+let avisoAtuais = [];
 // Função para abrir o modal de criação de aviso (exemplo simples)
 const avisosList = document.getElementById("avisosList");
 
@@ -15,6 +15,7 @@ async function carregarAvisos() {
 
 // --- 2. FUNÇÃO PARA EXIBIR NA TELA ---
 function renderizarAvisos(avisos) {
+  avisoAtuais = avisos; // Atualiza a lista de avisos atuais
   avisosList.innerHTML = ""; // Limpa a lista antes de mostrar
   avisos.forEach((aviso) => {
     const li = document.createElement("li");
@@ -24,8 +25,8 @@ function renderizarAvisos(avisos) {
                 <img src="icons/options.png">
               </button>
               <div class="dropdown-box">
-                <a class="dropdown-item" style="user-select: none;">Editar</a>
-                <a class="dropdown-item" style="user-select: none;">Excluir</a>
+                <a class="dropdown-item" onclick="atualizarAviso(${aviso.idaviso})" style="user-select: none;">Editar</a>
+                <a class="dropdown-item" onclick="excluirAviso(${aviso.idaviso})" style="user-select: none;">Excluir</a>
               </div>
                   <h3>${aviso.titulo}</h3>
                   <h6>${aviso.date? new Date(aviso.date).toLocaleDateString() : 'sem data'} • Autor: ${aviso.usuario?.nome || "Anônimo"}</h6>
@@ -37,7 +38,7 @@ function renderizarAvisos(avisos) {
 }
 
 // --- 3. LOGICA DO MODAL E CRIAÇÃO (CREATE) ---
-function abrirModal() {
+function abrirModal(aviso = null) {
   if (document.getElementById("avisoModal")) return;
 
   let modal = document.createElement("dialog");
@@ -57,7 +58,7 @@ function abrirModal() {
   });
 
   modal.innerHTML = `
-        <h3>Criar Novo Aviso</h3>
+        <h3>${aviso ? "Editar Aviso" : "Criar Novo Aviso"}</h3>
 
         <form id="formAviso" class="flex flex-col gap-4">
             <label class="form-label" for="titulo">Título:</label>
@@ -66,25 +67,26 @@ function abrirModal() {
                 id="titulo"
                 placeholder="Adicione um título para seu evento/aviso/notícia"
                 required
-                class="border p-2 form-control">
+                class="border p-2 form-control"
+                value="${aviso ? aviso.titulo : ""}">
 
             <label class="form-label" for="conteudo">Conteúdo:</label>
             <textarea
                 id="conteudo"
                 placeholder="Adicione o conteúdo do seu evento/aviso/notícia"
                 required
-                class="border p-2 form-control"></textarea>
+                class="border p-2 form-control">${aviso ? aviso.conteudo : ""}</textarea>
 
             <label class="form-label" for="escopo">Escopo:</label>
             <select id="escopo" class="border p-2 form-control">
-                <option value="geral">Geral</option>
-                <option value="funcionario">Funcionário</option>
-                <option value="aluno">Func. Específico</option>
+                <option value="geral" ${aviso && aviso.escopo === "geral" ? "selected" : ""}>Geral</option>
+                <option value="funcionario" ${aviso && aviso.escopo === "funcionario" ? "selected" : ""}>Funcionário</option>
+                <!-- <option value="aluno" ${aviso && aviso.escopo === "aluno" ? "selected" : ""}>Func. Específico</option> -->
             </select>
 
             <div class="flex gap-2">
                 <button type="submit" class="btn btn-success">
-                    Publicar
+                    ${aviso ? "Atualizar" : "Publicar"}
                 </button>
 
                 <button
@@ -107,13 +109,26 @@ function abrirModal() {
       conteudo: document.getElementById("conteudo").value,
       escopo: document.getElementById("escopo").value,
     };
-    const response = await fetch("/api/avisos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(novoAviso),
-    });
+    let response;
+    if (aviso) {
+      // Atualizar aviso existente
+      response = await fetch(`/api/avisos/${aviso.idaviso}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(novoAviso),
+      });
+    } else {
+      // Criar novo aviso
+      response = await fetch("/api/avisos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(novoAviso),
+      });
+    }
 
     if (response.ok) {
       fecharModal();
@@ -137,7 +152,16 @@ function fecharModal() {
   document.getElementById("sidebar-placeholder").style.filter = "none";
   if (modal) modal.remove();
 }
-async function deletarAviso(id) {
+
+function atualizarAviso(id) {
+    const aviso = avisoAtuais.find(aviso => aviso.idaviso === id);
+    if (!aviso) {
+        alert("Aviso não encontrado.");
+        return;
+    }
+    abrirModal(aviso);
+}
+async function excluirAviso(id) {
   if (confirm("Deseja mesmo excluir?")) {
     await fetch(`/api/avisos/${id}`, {
       method: "DELETE",
