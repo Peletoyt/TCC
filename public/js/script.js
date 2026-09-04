@@ -1,3 +1,5 @@
+let usuarios = [];
+let usuariosEditando = null;
 let toggleBtn;
 let sidebar;
 
@@ -76,7 +78,7 @@ console.log(window.location.pathname.split("/"));
 
 async function fetchUsuarios() {
   const response = await fetch("/api/usuarios");
-  const usuarios = await response.json();
+  usuarios = await response.json();
 
   const tbody = document.querySelector("#tabela-usuarios");
 
@@ -91,9 +93,32 @@ async function fetchUsuarios() {
       <td>${usuario.email}</td>
       <td>${usuario.usuariocol}</td>
       <td>${new Date(usuario.dataCriacao).toLocaleDateString("pt-BR")}</td>
+      <td>
+        <button type="button" class="btn btn-warning" onclick="editarUsuario(${usuario.idusuario})">Editar</button>
+        <button type="button" class="btn btn-danger" onclick="excluirUsuario(${usuario.idusuario})">Excluir</button>
+      </td>
     `;
     tbody.appendChild(row);
   });
 }
+async function editarUsuario(id) {
+    const usuario = usuarios.find(u => u.idusuario === id);
+    if (!usuario) {
+        alert("Usuário não encontrado.");
+        return;
+    }
+    usuarioEditando = id;
+    document.getElementById("nome-user").value = usuario.nome;
+    document.getElementById("nome-email").value = usuario.email;
+    document.getElementById("escopo-user").value = usuario.usuariocol;
+}
 
-fetchUsuarios();
+async function excluirUsuario(id) {
+  if (confirm("Deseja mesmo excluir este usuário?")) {
+    await fetch(`/api/usuarios/${id}`, {
+      method: "DELETE",
+    });
+    fetchUsuarios();
+  }
+}
+  fetchUsuarios();

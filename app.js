@@ -52,24 +52,17 @@ app.use('/api/avisos', auth, avisosRouter);
 app.use('/', login); // Rota para o login
 
 app.get('/home.html', (req, res) => {
-
-
     if (!req.session.usuario) {
         return res.redirect('/index.html');
     }
     if (req.session.usuario.usuariocol !== 'admin') {
         return res.send('Acesso negado'); // Redireciona para uma página de acesso dos funcionarios
     }
-
     res.sendFile(
         path.join(__dirname, 'public', 'home.html')
     );
-
 });
-
 app.use(express.static(path.join(__dirname, 'public'))); // Serve os arquivos estáticos do frontend (HTML, CSS, JS)
-
-
 
 // Arquivo estático no Express é qualquer arquivo que não precisa de processamento ou lógica do servidor para ser entregue ao cliente, como imagens, arquivos CSS, JavaScript, HTML, PDFs e outros.
 

@@ -4,6 +4,8 @@ const router = express.Router();
 const multer = require("multer");
 const prisma = require("../prismaClient");
 const admin = require('../middleware/admin');
+const fs = require("fs");
+const path = require("path");
 
 // ─── Configuração de fotos ─────────────────────────────────────────────
 const storage = multer.diskStorage({
@@ -58,8 +60,68 @@ router.post("/", admin, upload.single('foto'), async (req, res) => {
 });
 
 // ─── UPDATE: Atualizar usuário ────────────────────────────────────────────────
+router.put("/:id", admin, upload.single('foto'), async (req, res) => {
+  const { id } = req.params;
+  const { nome, email, usuariocol } = req.body;
+  try {
+    const data = {
+      nome,
+      email,
+      usuariocol
+    };
+    if (req.file) {
+      data.foto = req.file.filename;
+    }
+    const usuarioAtualizado = await prisma.usuario.update({
+      where: {
+        idusuario: parseInt(id)
+      },
+      data
+    });
+    res.json(usuarioAtualizado);
+  } catch (error) {
+    console.error("Erro ao atualizar usuário:", error);
+    res.status(500).json({
+      error: "Ocorreu um erro ao atualizar o usuário."
+    });
+  }
+});
 
 // ─── DELETE: Deletar usuário ────────────────────────────────────────────────
+router.delete("/:id", admin, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const usuario = await prisma.usuario.findUnique({
+            where: {
+                idusuario: parseInt(id)
+            }
+        });
 
-
+        if (!usuario) {
+            return res.status(404).json({
+                error: "Usuário não encontrado."
+            });
+        }
+        const caminhoFoto = path.join(
+            __dirname,
+            "../public/uploads",
+            usuario.foto
+        );
+        if (usuario.foto && fs.existsSync(caminhoFoto)) {
+            fs.unlinkSync(caminhoFoto);
+        }
+        await prisma.usuario.delete({
+            where: {
+                idusuario: parseInt(id)
+            }
+        });
+        res.status(200).json({
+            message: "Usuário e foto deletados com sucesso."
+        });
+    } catch (error) {
+        console.error("Erro ao deletar usuário:", error);
+        res.status(500).json({
+            error: "Erro ao deletar usuário."
+        });}
+});
 module.exports = router;
